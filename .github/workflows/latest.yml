@@ -1,0 +1,30 @@
+name: Run Lab Notebooks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test-labs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install nbval jupyter nbconvert
+
+      - name: Run notebooks with nbval
+        run: |
+          for nb in $(find labs/ -name "*.ipynb"); do
+            echo "📘 Running $nb"
+            jupyter nbconvert --execute --to notebook --inplace --ExecutePreprocessor.timeout=120 "$nb" --NbConvertApp.output_files_dir=outputs || true
+          done
