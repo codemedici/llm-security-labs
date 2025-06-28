@@ -1,1 +1,1 @@
-FLAG{placeholder}
+FLAG{embedding_secret_leak}

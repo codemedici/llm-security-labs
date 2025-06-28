@@ -1,1 +1,1 @@
-FLAG{placeholder}
+FLAG{adversarial_prompt_success}

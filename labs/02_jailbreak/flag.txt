@@ -1,1 +1,1 @@
-FLAG{placeholder}
+FLAG{jailbreak_triggered}
