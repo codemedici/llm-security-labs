@@ -1,0 +1,15 @@
+# Generic lab runner – builds a single lab into /app
+# ARG LAB selects which lab to copy at build-time
+FROM python:3.11-slim
+
+ARG LAB=01_prompt_injection
+ENV LAB=${LAB}
+
+WORKDIR /app
+COPY labs/${LAB}/ /app/
+
+# if the lab ships a requirements.txt, install it; ignore otherwise
+RUN test -f requirements.txt && pip install --no-cache-dir -r requirements.txt || true
+
+EXPOSE 8000
+CMD ["python", "vuln_chatbot.py"]

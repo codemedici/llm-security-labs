@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  vuln-bot:
+    build:
+      context: ..      # repo root, relative to this compose file
+      dockerfile: shared/docker/Dockerfile.bot
+      args:
+        LAB: 01_prompt_injection
+    container_name: vuln-bot
+    ports:
+      - "8001:8000"
+    environment:
+      - MODE=prompt_injection        # picked up by vuln_chatbot.py (if used)
